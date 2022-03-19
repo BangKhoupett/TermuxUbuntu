@@ -1,14 +1,14 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-mkdir -p ubuntu
+mkdir ubuntu
 cd ubuntu
-folder=ubuntu-fs
+folder=ubuntu20-fs
 cur=`pwd`
 if [ -d "$folder" ]; then
 	first=1
 	echo "skipping downloading"
 fi
-tarball="ubuntu-rootfs.tar.gz"
+tarball="ubuntu20-rootfs.tar.gz"
 
 if [ "$first" != 1 ];then
 	if [ ! -f $tarball ]; then
@@ -25,7 +25,7 @@ if [ "$first" != 1 ];then
 		*)
 			echo "unknown architecture"; exit 1 ;;
 		esac
-		wget "https://github.com/BangKhoupett/TermuxUbuntu/raw/master/Ubuntu20/Rootfs/focal-${archurl}.tar.gz" -0 $tarball
+		wget "https://github.com/AndronixApp/AndronixOrigin/raw/master/Rootfs/Ubuntu20/focal-${archurl}.tar.gz" -O $tarball
 	fi
 	
 	mkdir -p "$folder"
@@ -35,7 +35,7 @@ if [ "$first" != 1 ];then
 	cd "$cur"
 fi
 
-mkdir -p ubuntu-binds
+mkdir -p ubuntu20-binds
 mkdir -p ${folder}/proc/fakethings
 
 if [ ! -f "${cur}/${folder}/proc/fakethings/stat" ]; then
@@ -174,7 +174,7 @@ if [ ! -f "${cur}/${folder}/proc/fakethings/vmstat" ]; then
 	EOF
 fi
 
-bin=start-ubuntu.sh
+bin=start-ubuntu20.sh
 echo "writing launch script"
 cat > $bin <<- EOM
 #!/bin/bash
@@ -186,8 +186,8 @@ command+=" --kill-on-exit"
 command+=" --link2symlink"
 command+=" -0"
 command+=" -r $folder"
-if [ -n "\$(ls -A ubuntu-binds)" ]; then
-    for f in ubuntu-binds/* ;do
+if [ -n "\$(ls -A ubuntu20-binds)" ]; then
+    for f in ubuntu20-binds/* ;do
       . \$f
     done
 fi
@@ -195,7 +195,7 @@ command+=" -b /dev"
 command+=" -b /proc"
 command+=" -b /sys"
 command+=" -b /data"
-command+=" -b ubuntu-fs/root:/dev/shm"
+command+=" -b ubuntu20-fs/root:/dev/shm"
 command+=" -b /proc/self/fd/2:/dev/stderr"
 command+=" -b /proc/self/fd/1:/dev/stdout"
 command+=" -b /proc/self/fd/0:/dev/stdin"
@@ -223,22 +223,22 @@ else
 fi
 EOM
 
-mkdir -p ubuntu-fs/var/tmp
-rm -rf ubuntu-fs/usr/local/bin/*
+mkdir -p ubuntu20-fs/var/tmp
+rm -rf ubuntu20-fs/usr/local/bin/*
 
-wget -q https://raw.githubusercontent.com/BangKhoupett/TermuxUbuntu/master/Ubuntu20/Rootfs/.profile -O ubuntu-fs/root/.profile.1
+wget -q https://raw.githubusercontent.com/AndronixApp/AndronixOrigin/master/Rootfs/Ubuntu19/.profile -O ubuntu20-fs/root/.profile.1
 cat $folder/root/.profile.1 >> $folder/root/.profile && rm -rf $folder/root/.profile.1
-wget -q https://raw.githubusercontent.com/BangKhoupett/TermuxUbuntu/master/Ubuntu20/Rootfs/vnc -P ubuntu-fs/usr/local/bin
-wget -q https://raw.githubusercontent.com/BangKhoupett/TermuxUbuntu/master/Ubuntu20/Rootfs/vncpasswd -P ubuntu-fs/usr/local/bin
-wget -q https://raw.githubusercontent.com/BangKhoupett/TermuxUbuntu/master/Ubuntu20/Rootfs/vncserver-stop -P ubuntu-fs/usr/local/bin
-wget -q https://raw.githubusercontent.com/BangKhoupett/TermuxUbuntu/master/Ubuntu20/Rootfs/vncserver-start -P ubuntu-fs/usr/local/bin
+wget -q https://raw.githubusercontent.com/AndronixApp/AndronixOrigin/master/Rootfs/Ubuntu19/vnc -P ubuntu20-fs/usr/local/bin
+wget -q https://raw.githubusercontent.com/AndronixApp/AndronixOrigin/master/Rootfs/Ubuntu19/vncpasswd -P ubuntu20-fs/usr/local/bin
+wget -q https://raw.githubusercontent.com/AndronixApp/AndronixOrigin/master/Rootfs/Ubuntu19/vncserver-stop -P ubuntu20-fs/usr/local/bin
+wget -q https://raw.githubusercontent.com/AndronixApp/AndronixOrigin/master/Rootfs/Ubuntu19/vncserver-start -P ubuntu20-fs/usr/local/bin
 
-chmod +x ubuntu-fs/root/.bash_profile
-chmod +x ubuntu-fs/root/.profile
-chmod +x ubuntu-fs/usr/local/bin/vnc
-chmod +x ubuntu-fs/usr/local/bin/vncpasswd
-chmod +x ubuntu-fs/usr/local/bin/vncserver-start
-chmod +x ubuntu-fs/usr/local/bin/vncserver-stop
+chmod +x ubuntu20-fs/root/.bash_profile
+chmod +x ubuntu20-fs/root/.profile
+chmod +x ubuntu20-fs/usr/local/bin/vnc
+chmod +x ubuntu20-fs/usr/local/bin/vncpasswd
+chmod +x ubuntu20-fs/usr/local/bin/vncserver-start
+chmod +x ubuntu20-fs/usr/local/bin/vncserver-stop
 touch $folder/root/.hushlogin
 echo "127.0.0.1 localhost localhost" > $folder/etc/hosts
 echo "nameserver 1.1.1.1" > $folder/etc/resolv.conf
@@ -249,7 +249,6 @@ echo "making $bin executable"
 chmod +x $bin
 echo "removing image for some space"
 rm $tarball
-rm ubuntu.sh
 clear
 echo "You can now launch Ubuntu with the ./${bin} script form next time"
 bash $bin
