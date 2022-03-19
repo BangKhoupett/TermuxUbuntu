@@ -249,7 +249,7 @@ echo "making $bin executable"
 chmod +x $bin
 echo "removing image for some space"
 rm $tarball
-rm ubuntu.sh
+rm ~/ubuntu.sh
 clear
-echo "You can now launch Ubuntu with the ./${bin} script form next time"
+echo "You can now launch Ubuntu with command \n./ubuntu/${bin} \nor \ncd ubuntu \n./${bin} for next time"
 bash $bin
