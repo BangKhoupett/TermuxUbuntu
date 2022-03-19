@@ -1,5 +1,7 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
+mkdir -p ubuntu
+cd ubuntu
 folder=ubuntu-fs
 cur=`pwd`
 if [ -d "$folder" ]; then
@@ -247,6 +249,7 @@ echo "making $bin executable"
 chmod +x $bin
 echo "removing image for some space"
 rm $tarball
+rm ubuntu.sh
 clear
 echo "You can now launch Ubuntu with the ./${bin} script form next time"
 bash $bin
