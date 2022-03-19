@@ -25,7 +25,7 @@ if [ "$first" != 1 ];then
 		*)
 			echo "unknown architecture"; exit 1 ;;
 		esac
-		wget "https://github.com/AndronixApp/AndronixOrigin/raw/master/Rootfs/Ubuntu20/focal-${archurl}.tar.gz" -O $tarball
+		wget "https://github.com/BangKhoupett/TermuxUbuntu/raw/master/Ubuntu20/Rootfs/focal-${archurl}.tar.gz" -O $tarball
 	fi
 	
 	mkdir -p "$folder"
