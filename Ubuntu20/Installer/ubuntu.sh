@@ -1,7 +1,10 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-mkdir ubuntu
-cd ubuntu
+clear
+mkdir ~/ubuntu
+cd ~/ubuntu
+mkdir .data
+cd .data
 folder=ubuntu-fs
 cur=`pwd`
 if [ -d "$folder" ]; then
@@ -249,7 +252,19 @@ echo "making $bin executable"
 chmod +x $bin
 echo "removing image for some space"
 rm $tarball
-rm ~/ubuntu.sh
+cd ..
+cd ..
+rm ubuntu.sh
+cd ~/ubuntu
+cat > start-ubuntu.sh <<- EOM
+cd .data
+./start-ubuntu.sh
+EOM
+chm0d+x start-ubuntu.sh
+cat > uninstall-ubuntu.sh <<- EOM
+rm -rf ~/ubuntu
+EOM
+chmod +x uninstall-ubuntu.sh
 clear
-echo "You can now launch Ubuntu with command \n./ubuntu/${bin} \nor \ncd ubuntu \n./${bin} for next time"
+echo "You can now launch Ubuntu with command ./${bin} \nand uninstall Ubuntu with command ./uninstall-ubuntu.sh for next time"
 bash $bin
