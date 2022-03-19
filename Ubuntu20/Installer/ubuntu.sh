@@ -1,5 +1,7 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
+mkdir ubuntu
+cd ubuntu
 folder=ubuntu-fs
 cur=`pwd`
 if [ -d "$folder" ]; then
@@ -23,7 +25,7 @@ if [ "$first" != 1 ];then
 		*)
 			echo "unknown architecture"; exit 1 ;;
 		esac
-		wget "https://github.com/BangKhoupett/TermuxUbuntu/blob/master/Ubuntu20/Rootfs/focal-${archurl}.tar.gz" -0 $tarball
+		wget "https://github.com/BangKhoupett/TermuxUbuntu/raw/master/Ubuntu20/Rootfs/focal-${archurl}.tar.gz" -0 $tarball
 	fi
 	
 	mkdir -p "$folder"
@@ -247,6 +249,7 @@ echo "making $bin executable"
 chmod +x $bin
 echo "removing image for some space"
 rm $tarball
+rm ubuntu.sh
 clear
 echo "You can now launch Ubuntu with the ./${bin} script form next time"
 bash $bin
