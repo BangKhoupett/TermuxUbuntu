@@ -1,6 +1,6 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-mkdir ubuntu
+mkdir -p ubuntu
 cd ubuntu
 folder=ubuntu-fs
 cur=`pwd`
