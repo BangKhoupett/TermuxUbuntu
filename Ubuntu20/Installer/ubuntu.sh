@@ -260,7 +260,7 @@ cat > start-ubuntu.sh <<- EOM
 cd .data
 ./start-ubuntu.sh
 EOM
-chm0d+x start-ubuntu.sh
+chm0d +x start-ubuntu.sh
 cat > uninstall-ubuntu.sh <<- EOM
 rm -rf ~/ubuntu
 EOM
