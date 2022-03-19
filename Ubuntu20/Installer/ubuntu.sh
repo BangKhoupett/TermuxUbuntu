@@ -8,8 +8,6 @@ if [ -d "$folder" ]; then
 fi
 tarball="ubuntu-rootfs.tar.gz"
 
-termux-setup-storage
-
 if [ "$first" != 1 ];then
 	if [ ! -f $tarball ]; then
 		echo "Download Rootfs, this may take a while base on your internet speed."
